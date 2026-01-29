@@ -1,0 +1,32 @@
+name: wordpress
+services:
+    mysql:
+        networks:
+            - wordpress-net
+        restart: always
+        environment:
+            - MYSQL_ROOT_PASSWORD=123456
+            - MYSQL_DATABASE=wordpress
+            - MYSQL_USER=wordpress
+            - MYSQL_PASSWORD=123456
+        container_name: mysql
+        image: registry.cn-beijing.aliyuncs.com/wangxiaochun/mysql:8.0.29-oracle
+    wordpress:
+        ports:
+            - 80:80
+        networks:
+            - wordpress-net
+        container_name: wordpress
+        restart: always
+        environment:
+            - WORDPRESS_DB_HOST=mysql
+            - WORDPRESS_DB_USER=wordpress
+            - WORDPRESS_DB_PASSWORD=123456
+            - WORDPRESS_DB_NAME=wordpress
+        image: registry.cn-beijing.aliyuncs.com/wangxiaochun/wordpress:php8.2-apache
+networks:
+    wordpress-net:
+        ipam:
+          driver: default
+          config:
+          - subnet: 172.27.0.0/26
