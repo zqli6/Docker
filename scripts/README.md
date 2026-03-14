@@ -1,6 +1,6 @@
 # 1. docker镜像加速  
 ```
-cat /etc/docker/daemon.json<<-"EOF"
+cat >/etc/docker/daemon.json<<-"EOF"
 {
     "registry-mirrors": [
         "https://docker.m.daocloud.io",
