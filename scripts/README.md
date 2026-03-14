@@ -1,4 +1,5 @@
 # 1. docker镜像加速  
+  注意：修改insecure-registeries是harbor仓库安全地址，按实际替换
 ```
 cat >/etc/docker/daemon.json<<-"EOF"
 {
@@ -8,7 +9,7 @@ cat >/etc/docker/daemon.json<<-"EOF"
         "https://docker.1ms.run",
         "https://docker.xuanyuan.me"
     ],
-	"insecure-registries": ["harbor.wang.org"]
+	"insecure-registries": ["harbor.lzq.org"]
 }
 EOF
 ```
