@@ -1,5 +1,6 @@
 # 1. docker镜像加速  
-  注意：修改insecure-registeries是harbor仓库安全地址，按实际替换
+  注意：修改insecure-registeries是harbor仓库地址，按实际替换
+该地址允许 **Docker 通过 HTTP 或不受信任证书访问** harbor.lzq.org 这个私有仓库。
 ```
 cat >/etc/docker/daemon.json<<-"EOF"
 {
