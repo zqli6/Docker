@@ -1,0 +1,14 @@
+# 1. docker镜像加速  
+```
+cat /etc/docker/daemon.json<<-"EOF"
+{
+    "registry-mirrors": [
+        "https://docker.m.daocloud.io",
+        "https://docker.1panel.live",
+        "https://docker.1ms.run",
+        "https://docker.xuanyuan.me"
+    ],
+	"insecure-registries": ["harbor.wang.org"]
+}
+EOF
+```
