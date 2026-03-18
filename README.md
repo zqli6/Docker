@@ -1,45 +1,29 @@
-# 1. Clone this repository with https
-1. GitHub
-```python
+# Docker
+
+Docker 相关配置与脚本合集，涵盖 Docker 环境安装、Harbor 私有镜像仓库搭建、Dockerfile 镜像构建以及 docker-compose 多服务编排，适用于在服务器上快速搭建容器化运行环境。
+
+## 目录说明
+
+| 目录 | 说明 |
+|------|------|
+| `scripts/` | Docker 环境一键安装脚本、Harbor 私有镜像仓库安装脚本 |
+| `Dockerfile/` | 常用服务的 Dockerfile 示例，包含镜像构建最佳实践 |
+| `docker-compose/` | docker-compose 编排文件，包含 WordPress + MySQL 完整部署示例及学习测试用例 |
+
+## 主要内容
+
+- **Docker 安装脚本**：适配国内环境，自动配置镜像加速源
+- **Harbor 安装脚本**：搭建企业级私有镜像仓库，支持镜像版本管理与访问控制
+- **WordPress + MySQL**：基于 docker-compose 的完整 Web 应用部署示例，包含数据持久化配置
+- **Dockerfile 示例**：多阶段构建、环境变量注入等常用构建模式
+
+## 快速开始
+```bash
+# 克隆仓库
 git clone https://github.com/zqli6/Docker/
-```
-2. Gitee
-```
+# 或 Gitee
 git clone https://gitee.com/zqli6/Docker/
-```
-# 2. To get one file of this repository
-1. GitHub
-```python
-wget https://raw.githubusercontent.com/zqli6/Docker/main/path/to/file
-```
-2. Gitee
-```
-wget https://gitee.com/zqli6/Docker/raw/main/path/to/file
-```
-# 3. Clone this repostory with ssh
-## 3.1 Cpoy public key to github
-```
-cat ~/.ssh/id_rsa.pub
-```
-1. GitHub  
-GitHub → Setting → SSH and GPG keys → New SSH key
-3. Gitee  
-Gitee → 设置 → SSH公钥 → 添加公钥
-## 3.2 Test connect
-1. GitHub 
-```
-ssh -T git@github.com
-```
-2. Gitee
-```
-ssh -T git@gitee.com
-```
-## 3.3 Clone
-1. GitHub
-```python
-git clone git@github.com:zqli6/Docker.git
-```
-2. Gitee
-```
-git clone git@gitee.com:zqli6/Docker.git
+
+# 获取单个文件（以 Docker 安装脚本为例）
+wget https://raw.githubusercontent.com/zqli6/Docker/main/scripts/install_docker.sh
 ```
