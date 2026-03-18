@@ -25,5 +25,5 @@ git clone https://github.com/zqli6/Docker/
 git clone https://gitee.com/zqli6/Docker/
 
 # 获取单个文件（以 Docker 安装脚本为例）
-wget https://raw.githubusercontent.com/zqli6/Docker/main/scripts/install_docker.sh
+wget https://raw.githubusercontent.com/zqli6/Docker/main/path/to/file
 ```
