@@ -137,11 +137,26 @@ EOF
 ```
 systemctl restart docker;docker-compose version
 ```
+```
 mkdir /usr/local/src/JumperServer;cd /usr/local/src/JumperServer
+
 ```
 ```
 wget https://gitee.com/zqli6/Docker/raw/main/JumperServer/docker-compose.yaml
 docker-compose up -d
 docker-compose ps
 docker-compose logs jms_all # -f
+```
+```
+地址: http://<JumpServer服务器IP地址>:<服务运行端口>
+用户名: admin
+密码: ChangeMe
+```
+#### 脚本一键安装  
+官方：https://docs.jumpserver.org/zh/v3/installation/setup_linux_standalone/online_install/
+```
+[root@ubuntu2404 ~]#VERSION=4.10.15
+[root@ubuntu2404 ~]#VERSION=4.10.7
+[root@ubuntu2404 ~]#VERSION=4.10.2
+[root@ubuntu2404 ~]#curl -sSL https://resource.fit2cloud.com/jumpserver/jumpserver/releases/download/v${VERSION}/quick_start.sh|bash
 ```
