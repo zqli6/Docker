@@ -1,4 +1,5 @@
 # Jumperserver
+本说明中的镜像均已做SWR镜像仓库加速
 #### 安装教程
 docker 镜像加速
 ```
