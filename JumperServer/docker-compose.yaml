@@ -38,7 +38,7 @@ services:
     networks:
       - net
   jumpserver:
-     image: swr.cn-southwest-2.myhuaweicloud.com/zqli/jumpserver/jms_all:v4.10.16-lts
+    image: swr.cn-southwest-2.myhuaweicloud.com/zqli/jumpserver/jms_all:v4.10.16-lts
     #image: jumpserver/jms_all:v4.10.7
     #image: jumpserver/jms_all:v4.10.2
     #image: registry.cn-beijing.aliyuncs.com/wangxiaochun/jms_all:v4.6.0
