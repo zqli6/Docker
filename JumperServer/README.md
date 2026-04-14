@@ -139,10 +139,11 @@ systemctl restart docker;docker-compose version
 ```
 ```
 mkdir /usr/local/src/JumperServer;cd /usr/local/src/JumperServer
-
 ```
 ```
 wget https://gitee.com/zqli6/Docker/raw/main/JumperServer/docker-compose.yaml
+```
+```
 docker-compose up -d
 docker-compose ps
 docker-compose logs jms_all # -f
