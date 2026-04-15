@@ -120,7 +120,7 @@ docker exec -it mysql sh
 密码：ChangeMe
 ```
 
-#### docker-compose部署JumperServer  
+# 2. docker-compose部署JumperServer  
  官方docker-compose：https://github.com/jumpserver/Dockerfile/blob/v4.1.0/allinone/docker-compose.yml
 ```
 apt update && apt -y install docker-compose python3-pip
@@ -249,6 +249,12 @@ server {
     }
 }
 EOF
+```
+配置生效
+```
+nginx -t
+nginx -s reload
+systemctl restart nginx
 ```
 ## 3. 修改docker-compose.yaml中端口  
 ```
