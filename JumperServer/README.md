@@ -1,6 +1,6 @@
-# Jumperserver
+# 1. Jumperserver
 本说明中的镜像均已做SWR镜像仓库加速
-#### 安装教程
+## 1. 安装教程
 docker 镜像加速
 ```
 cat > /etc/docker/daemon.json <<EOF
@@ -115,7 +115,7 @@ docker exec -it mysql sh
 ```
 3.  web访问  
 ```
-# 登录位置为docker主机IP
+# 2。 登录位置为docker主机IP
 账号：admin
 密码：ChangeMe
 ```
@@ -154,7 +154,7 @@ docker-compose logs jms_all # -f
 用户名: admin
 密码: ChangeMe
 ```
-#### 脚本一键安装  
+# 3. 脚本一键安装  
 官方：https://docs.jumpserver.org/zh/v3/installation/setup_linux_standalone/online_install/
 ```
 [root@ubuntu2404 ~]#VERSION=4.10.15
@@ -162,3 +162,104 @@ docker-compose logs jms_all # -f
 [root@ubuntu2404 ~]#VERSION=4.10.2
 [root@ubuntu2404 ~]#curl -sSL https://resource.fit2cloud.com/jumpserver/jumpserver/releases/download/v${VERSION}/quick_start.sh|bash
 ```
+
+# 4. 使用nginx配置https  
+## 1. nginx安装及证书生成  
+```
+apt install nginx -y
+```
+```
+[root@jenkins ssl ]# mkdir /etc/nginx/ssl/
+[root@jenkins ssl ]# cd /etc/nginx/ssl
+
+[root@jenkins ssl ]# openssl genrsa -out ca.key 4096
+
+[root@jenkins ssl ]# openssl req -x509 -new -nodes -sha512 -days 3650 \
+    -subj "/C=CN/ST=Beijing/L=Beijing/O=example/OU=Personal/CN=jms.lzq.com" \
+    -key ca.key \
+    -out ca.crt
+
+[root@jenkins ssl ]# ls
+ca.crt  ca.key
+
+[root@jenkins ssl ]# openssl genrsa -out jms.lzq.com.key 4096
+[root@jenkins ssl ]# ls
+ca.crt  ca.key  jms.lzq.com.key
+
+[root@jenkins ssl ]# openssl req -sha512 -new \
+    -subj "/C=CN/ST=Beijing/L=Beijing/O=example/OU=Personal/CN=jms.lzq.com" \
+    -key jms.lzq.com.key \
+    -out jms.lzq.com.csr
+
+[root@jenkins ssl ]# cat > v3.ext <<-EOF
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+[alt_names]
+DNS.1=jms.lzq.com # 此处必须和和harbor的网站名称一致
+EOF    
+
+[root@jenkins ssl ]#  openssl x509 -req -sha512 -days 3650 -extfile v3.ext -CA ca.crt -CAkey ca.key -CAcreateserial -in jms.lzq.com.csr -out jms.lzq.com.crt
+```
+查看证书
+```
+openssl x509 -in jms.lzq.com.crt -noout -text
+```
+## 2. nginx配置文件  
+```
+cat /etc/nginx/conf.d/jms.conf<<'EOF'
+# 1. Server 块：定义监听的端口和域名
+server {
+    listen 80;
+    server_name jms.lzq.com; # 替换为你的实际域名或 IP
+
+    # 强制将 HTTP 转发到 HTTPS (生产环境建议)
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl; 
+    server_name jms.lzq.com;
+
+    # SSL 证书配置
+    ssl_certificate /etc/nginx/ssl/jms.lzq.com.crt;
+    ssl_certificate_key /etc/nginx/ssl/jms.lzq.com.key;
+
+    # 2. Location 块：定义具体的转发规则（也就是你刚才看的那部分）
+    location / {
+        proxy_pass http://127.0.0.1:880;   # 此处端口应与docker-compose.yaml中jumperserver的端口一致
+        proxy_http_version 1.1;
+        
+        # 刚才讨论的参数放这里
+        client_max_body_size 4096m; 
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        proxy_connect_timeout 600s;
+        proxy_send_timeout 600s;
+        proxy_read_timeout 600s;
+    }
+}
+EOF
+```
+## 3. 修改docker-compose.yaml中端口  
+```
+services.jumpserver.ports
+
+ports:
+      - ${HTTP_PORT:-880}:80/tcp
+      - ${SSH_PORT:-2222}:2222/tcp
+```
+
+
+
+
+
