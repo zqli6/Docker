@@ -115,7 +115,7 @@ docker exec -it mysql sh
 ```
 3.  web访问  
 ```
-# 2。 登录位置为docker主机IP
+# 2. 登录位置为docker主机IP
 账号：admin
 密码：ChangeMe
 ```
@@ -140,6 +140,13 @@ systemctl restart docker;docker-compose version
 ```
 ```
 mkdir /usr/local/src/JumperServer;cd /usr/local/src/JumperServer
+```
+指定mysql密码插件
+```
+cat >mysqld.cnf<<EOF 
+[mysqld]
+default_authentication_plugin=mysql_native_password
+EOF
 ```
 ```
 wget https://gitee.com/zqli6/Docker/raw/main/JumperServer/docker-compose.yaml
