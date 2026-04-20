@@ -5,7 +5,7 @@
 #QQ:                412001070
 #Date:              2022-10-14
 #FileName:          install_docker_offline.sh
-#URL:               http://www.lizhiquan.com
+#URL:               https://gitee.com/zqli6/
 #Description:       The test script
 #Copyright (C):     2022 All rights reserved
 #********************************************************************
@@ -121,7 +121,7 @@ start_docker (){
 
 
 config_docker_completion () {
-    wget -P /etc/bash_completion.d http://www.lizhiquan.com:8888/testdir/docker/docker_completion.sh
+    wget -P /etc/bash_completion.d https://gitee.com/zqli6/:8888/testdir/docker/docker_completion.sh
     #curl https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker -o /etc/bash_completion.d/docker.sh
     #source /etc/bash_completion.d/docker_completion.sh
 }
