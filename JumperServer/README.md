@@ -34,12 +34,12 @@ EOF
      -v /data/mysql:/var/lib/mysql \
      --restart always \
      --network jumpserver-net \
-     registry.cn-beijing.aliyuncs.com/wangxiaochun/mysql:8.0.29-oracle
+     registry.cn-beijing.aliyuncs.com/lizhiquan/mysql:8.0.29-oracle
    ```
    2. 安装redis  
    ```
    docker run -d --name redis --restart always --network \
-   jumpserver-net -v /data/redis:/data registry.cn-beijing.aliyuncs.com/wangxiaochun/redis:7.2.5
+   jumpserver-net -v /data/redis:/data registry.cn-beijing.aliyuncs.com/lizhiquan/redis:7.2.5
    ```
    3. 生成随机token  
    ```
@@ -99,7 +99,7 @@ EOF
      -v /opt/jumpserver/web/log:/var/log/nginx \
      swr.cn-southwest-2.myhuaweicloud.com/zqli/jumpserver/jms_all:v4.10.16-lts
      # jumpserver/jms_all:v4.10.15
-     # registry.cn-beijing.aliyuncs.com/wangxiaochun/jms_all:v4.10.2
+     # registry.cn-beijing.aliyuncs.com/lizhiquan/jms_all:v4.10.2
    ```
 2. 验证  
 ```

@@ -10,7 +10,7 @@ services:
             - MYSQL_USER=wordpress
             - MYSQL_PASSWORD=123456
         container_name: mysql
-        image: registry.cn-beijing.aliyuncs.com/wangxiaochun/mysql:8.0.29-oracle
+        image: registry.cn-beijing.aliyuncs.com/lizhiquan/mysql:8.0.29-oracle
     wordpress:
         ports:
             - 80:80
@@ -23,7 +23,7 @@ services:
             - WORDPRESS_DB_USER=wordpress
             - WORDPRESS_DB_PASSWORD=123456
             - WORDPRESS_DB_NAME=wordpress
-        image: registry.cn-beijing.aliyuncs.com/wangxiaochun/wordpress:php8.2-apache
+        image: registry.cn-beijing.aliyuncs.com/lizhiquan/wordpress:php8.2-apache
 networks:
     wordpress-net:
         ipam:
