@@ -1,3 +1,19 @@
+# 1. docker镜像加速  
+  注意：修改insecure-registeries是harbor仓库地址，按实际替换  
+该地址允许 **Docker 通过 HTTP 或不受信任证书访问** harbor.lzq.org 这个私有仓库。
+```
+cat >/etc/docker/daemon.json<<-"EOF"
+{
+    "registry-mirrors": [
+        "https://docker.m.daocloud.io",
+        "https://docker.1panel.live",
+        "https://docker.1ms.run",
+        "https://docker.xuanyuan.me"
+    ],
+	"insecure-registries": ["harbor.lzq.org"]
+}
+EOF
+```
 # Docker
 
 Docker 相关配置与脚本合集，涵盖 Docker 环境安装、Harbor 私有镜像仓库搭建、Dockerfile 镜像构建以及 docker-compose 多服务编排，适用于在服务器上快速搭建容器化运行环境。
